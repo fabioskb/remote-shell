@@ -52,25 +52,22 @@ git config --global user.email "$3"
 if [ -d "cmd" ]; then
     echo "directory cmd exists"
     else
-        git clone 'https://github.com/fabioskb/remote-shell.git'
-        cd remote-shell || exit
-    
         mkdir "$HOME/cmd"
-        cp comando "$HOME/cmd"
-        cp rcmd.log "$HOME/cmd"
+        touch comando "$HOME/cmd"
+        echo 'ls ~' > "$HOME/cmd/comando"
+        
+        touch rcmd.log "$HOME/cmd"
         cd "$HOME/cmd" || exit
         
         git init
         git add comando rcmd.log
-        git commit -m "commit message"
-        
+        git commit -m "First commit" -a        
         #gh repo create -s . --private
-        git remote add cmd https://github.com/$2/cmd.git
-        git fetch cmd
-        git push --set-upstream cmd master
-        
+        git remote add origin https://github.com/"$2"/cmd.git
+        git push -u origin master
 fi
 
+cd "$HOME" || exit
 while true;do
     sleep "$1"
     rm -rf "$HOME/cmd"
@@ -82,10 +79,10 @@ while true;do
     $cmd &
     
     echo -e date"\n""$cmd\n" >> ./rcmd.log
+    git init
     git add rcmd.log
     git commit -m "commit"
-    git fetch cmd
-    git push --set-upstream cmd master
+    git push -u origin master
     
 done
 
