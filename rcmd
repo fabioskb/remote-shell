@@ -56,12 +56,12 @@ if [ -d "cmd" ]; then
         cd remote-shell || exit
     
         mkdir "$HOME/cmd"
-        cp command.txt "$HOME/cmd"
+        cp comando "$HOME/cmd"
         cp rcmd.log "$HOME/cmd"
         cd "$HOME/cmd" || exit
         
         git init
-        git add command.txt rcmd.log
+        git add comando rcmd.log
         git commit -m "commit message"
         
         #gh repo create -s . --private
@@ -78,7 +78,7 @@ while true;do
     git clone "https://github.com/$2/cmd.git"
     cd "$HOME/cmd" || exit
     
-    cmd=$(cat -u "$HOME"/cmd/command.txt)
+    cmd=$(cat $HOME/cmd/comando)
     $cmd &
     
     echo -e date"\n""$cmd\n" >> ./rcmd.log
