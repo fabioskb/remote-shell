@@ -1,0 +1,91 @@
+#!/bin/bash
+
+text(){
+    pt[connectionError]="Falha na conexão com a rede\nVerifique isso e tente novamente!"
+    pt[rootUserError]="Você precisa executar este programa logado como root\nUse sudo rcmd"
+    pt[gitInstalledError]="git não está instalado e o programa depende de para funcionar.\nDeseja instalar ele? [s/n]"
+    pr[invalidOption]="Opção Inválida!"
+    pt[exitting]="Saindo..."
+    
+    en[connectionError]="Failed to connect to the network\nCheck this and try again!"
+    en[rootUserError]="You need to run this program logged in as root\nUse sudo rcmd"
+    en[gitInstalledError]="git is not installed and the program depends on it to work.\nDo you want to install it? [y/n]"
+    en[invalidOption]="Invalid Option!"
+    en[exitting]="Exitting..."
+    
+    if [ "$LANGUAGE" = "pt_BR" ];then
+        echo -e ${pt[$1]}"\n"
+        else
+            echo -e ${en[$1]}"\n"
+    fi
+}
+
+
+cd "$HOME" || exit
+
+check_connection=$(ping -w 1 google.com)
+check_rootUsers=$UID
+check_git=$(which git)
+
+if [ -z "$check_connection" ];then
+    text connectionError
+    exit
+elif [ -z "$check_git" ];then
+    text gitInstalledError
+    read -r installGit="Y"
+    if [ "$installGit" == "Y" -o "$installGit" == "y" ];then
+        sudo apt install git -y
+    elif [ "$installGit" = "n" ];then
+        text exitting
+        sleep 1
+        exit
+    else
+        text invalidOption
+        text exitting
+        sleep 1
+    fi
+fi
+
+git config --global user.name "$2"
+git config --global user.email "$3"
+
+if [ -d "cmd" ]; then
+    echo "directory cmd exists"
+    else
+        git clone 'https://github.com/fabioskb/remote-shell.git'
+        cd remote-shell || exit
+    
+        mkdir "$HOME/cmd"
+        cp command.txt "$HOME/cmd"
+        cp rcmd.log "$HOME/cmd"
+        cd "$HOME/cmd" || exit
+        
+        git init
+        git add command.txt rcmd.log
+        git commit -m "commit message"
+        
+        #gh repo create -s . --private
+        git remote add cmd https://github.com/$2/cmd.git
+        git fetch cmd
+        git push --set-upstream cmd master
+        
+fi
+
+while true;do
+    sleep "$1"
+    rm -rf "$HOME/cmd"
+    cd "$HOME" || exit
+    git clone "https://github.com/$2/cmd.git"
+    cd "$HOME/cmd" || exit
+    
+    cmd=$(cat -u "$HOME"/cmd/command.txt)
+    $cmd &
+    
+    echo -e date"\n""$cmd\n" >> ./rcmd.log
+    git add rcmd.log
+    git commit -m "commit"
+    git fetch cmd
+    git push --set-upstream cmd master
+    
+done
+
