@@ -1,96 +1,146 @@
 #!/bin/bash
 
-text(){
-    pt[connectionError]="Falha na conexão com a rede\nVerifique isso e tente novamente!"
-    pt[rootUserError]="Você precisa executar este programa logado como root\nUse sudo rcmd"
-    pt[gitInstalledError]="git não está instalado e o programa depende de para funcionar.\nDeseja instalar ele? [s/n]"
-    pr[invalidOption]="Opção Inválida!"
-    pt[exitting]="Saindo..."
-    
-    en[connectionError]="Failed to connect to the network\nCheck this and try again!"
-    en[rootUserError]="You need to run this program logged in as root\nUse sudo rcmd"
-    en[gitInstalledError]="git is not installed and the program depends on it to work.\nDo you want to install it? [y/n]"
-    en[invalidOption]="Invalid Option!"
-    en[exitting]="Exitting..."
-    
-    if [ "$LANGUAGE" = "pt_BR" ];then
-        echo -e ${pt[$1]}"\n"
-        else
-            echo -e ${en[$1]}"\n"
-    fi
-}
-
-
+getopts s safe_mode
+echo "$safe_mode"
 cd "$HOME" || exit
 
+# Checking args
+if [ "$#" -lt 3 ] && [ "$safe_mode" = "?" ];then
+    if [ "$LANGUAGE" = "pt_BR" ]; then echo -e 'Comando inválido!\nUso: rcmd [-s] <tempo_espera> <usuario_git> <email_git>'; else echo -e 'Invalid command!\nUsage: rcmd [-s] <wait_time> <github_user> <github_email>'; fi
+    exit 1
+elif [ "$#" -lt 4 ] && [ "$safe_mode" = "s" ];then
+    if [ "$LANGUAGE" = "pt_BR" ]; then echo -e 'Comando inválido!\nUso: rcmd [-s] <tempo_espera> <usuario_git> <email_git>'; else echo -e 'Invalid command!\nUsage: rcmd [-s] <wait_time> <github_user> <github_email>'; fi
+    exit 1
+fi
+
+if [ "$LANGUAGE" = "pt_BR" ]; then echo "Checando a conexão..."; else echo "Checking connection..."; fi
 check_connection=$(ping -w 1 githubstatus.com)
-check_rootUsers=$UID
+
+# Variables
+#check_rootUsers=$UID
 check_git=$(which git)
-pull=true
+check_gh=$(which gh)
+if [ "$1" = "-s" ];then
+    wait_time=$2
+    user_git=$3
+    email_git=$4
+else
+    wait_time=$1
+    user_git=$2
+    email_git=$3
 
-echo "$check_connection"
-if [ -z $check_connection ];then
-    text connectionError
-    exit
 fi
+menuOption=""
 
-if [ -z "$check_git" ];then
-    text gitInstalledError
-    read -r installGit="Y"
-    if [ "$installGit" == "Y" -o "$installGit" == "y" ];then
-        sudo apt install git -y
+
+# Check Connection
+if [ -z "$check_connection" ];then
+    if [ "$LANGUAGE" = "pt_BR" ]; then echo -e "Falha na conexão com a rede\nVerifique isso e tente novamente."; else echo -e "Failed to connect to the network\nCheck this and try again"; fi
+    exit 1
+
+# Depends Check
+elif [ -z "$check_git" ] || [ -z "$check_gh" ];then
+    if [ "$LANGUAGE" = "pt_BR" ]; then echo -e "Dependencias não estão instaladas e o programa depende delas.\nDeseja instalar? [s/n]"; else echo -e "Depends are not installed and the program depends on it to work.\nDo you want to install it? [y/n]"; fi
+    read -r installGit
+    if [ "$installGit" == "Y" ] || [ "$installGit" == "y" ] || [ "$installGit" == "s" ] || [ "$installGit" == "S" ];then
+        if [ -z "$check_git" ]; then 
+            sudo apt install git -y 
+        elif [ -z "$check_gh" ]; then 
+            sudo apt install gh -y
+        fi
     elif [ "$installGit" = "n" ];then
-        text exitting
+        if [ "$LANGUAGE" = "pt_BR" ]; then echo "Saindo..."; else echo "Exitting..."; fi
         sleep 1
-        exit
+        exit 1
     else
-        text invalidOption
-        text exitting
+        if [ "$LANGUAGE" = "pt_BR" ]; then echo "Opção inválida!"; else "Invalid Option!"; fi
+        if [ "$LANGUAGE" = "pt_BR" ]; then echo "Saindo..."; else echo "Exitting..."; fi
         sleep 1
     fi
 fi
 
-git config --global user.name "$2"
-git config --global user.email "$3"
-
-if [ -d "cmd" ]; then
-    echo "directory cmd exists"
-    else
-        mkdir "$HOME/cmd"
-        touch comando "$HOME/cmd"
-        echo "" > "$HOME/cmd/comando"
-        touch rcmd.log "$HOME/cmd"
-        echo " " > "$HOME/cmd/rcmd.log"
-        cd "$HOME/cmd" || exit
-        
-        git init
-        git add .
-        git add comando rcmd.log
-        git commit -m "First commit"
-        gh repo create -s . --private
-        git remote add origin "https://github.com/$2/cmd.git"
-        git push -u origin master
-fi
-
-cd "$HOME" || exit
-while true;do
-    sleep "$1"
-    cd "$HOME/cmd" || exit
-    git init > /dev/null
-    git pull origin master > /dev/null
-    echo "" > ./rcmd.log
-    cmd=$(cat "$HOME"/cmd/comando)
-    if [ "$cmd" == "exit" ];then
-        break
-    fi
-    date=$(date)
-    
-    echo -e "\n* $date" >> ./rcmd.log
-    $cmd >> ./rcmd.log 
-    
-    git add rcmd.log > /dev/null
-    git commit -m "commit" > /dev/null
-    git push -u origin master > /dev/null
-    
+# MENU
+while true; do
+    if [ "$LANGUAGE" = "pt_BR" ]; then echo -e 'Escolha uma opção abaixo:\n[1] - Resetar\n[2] - Executar\nSua escolha:'; else echo -e "Choose an option below\n[1] - Reset\n[2] - Execute\nYour choose:"; fi
+    read -r menuOption
+    case "${menuOption}" in
+        1|2)
+            break
+        ;;
+        *)
+            if [ "$LANGUAGE" = "pt_BR" ]; then echo "Opção inválida!"; else "Invalid Option!"; fi
+        ;;
+    esac
 done
 
+# Running...
+if [ "$menuOption" -eq 1 ]; then
+    gh repo delete cmd --confirm
+    if [ -e "$HOME/cmd" ]; then
+        rm -rf "$HOME"/cmd
+    fi
+elif [ "$menuOption" -eq 2 ]; then
+    git config --global user.name "$user_git"
+    git config --global user.email "$email_git"
+
+    if [ -d "cmd" ]; then
+        echo "Running..."
+        else
+            mkdir "$HOME/cmd"
+            touch comando "$HOME/cmd"
+            echo "ls ." > "$HOME/cmd/comando"
+            touch rcmd.log "$HOME/cmd"
+            echo " " > "$HOME/cmd/rcmd.log"
+            touch README.md "$HOME/cmd"
+            cd "$HOME/cmd" || exit
+            echo "* Put a command inside the comando file to be executed remotely in the remote-shell program." > "$HOME/cmd/README.md"
+            echo "* You can see the execution log in the rcmd.log file." >> "$HOME/cmd/README.md"
+            
+            git init
+            git add .
+            git add comando rcmd.log README.md
+            git commit -m "First commit"
+            gh repo create -s . --private
+            git remote add origin "https://github.com/$2/cmd.git"
+            git push -u origin master
+    fi
+
+    cd "$HOME/cmd" || exit
+    while true;do
+        case "${safe_mode}" in
+            s)
+                sleep "$(("$wait_time" - 8))"
+                echo "$(("$wait_time" - 8))"
+                nmcli r all on
+                sleep 8
+            ;;
+            ?)
+                sleep "$wait_time"
+            ;;
+        esac
+        git init > /dev/null
+        git pull origin master > /dev/null
+        cmd=$(cat comando)
+        date=$(date)
+        if [ "$cmd" == "exit" ];then
+            echo "" > rcmd.log
+            git add rcmd.log > /dev/null
+            git commit -m "commit" > /dev/null
+            git push -u origin master > /dev/null
+            break
+        fi
+
+        echo -e "\n* $date" >> ./rcmd.log
+        $cmd >> ./rcmd.log 
+        
+        git add rcmd.log > /dev/null
+        git commit -m "commit" > /dev/null
+        git push -u origin master > /dev/null
+
+        case ${safe_mode} in s) nmcli r all off;; esac
+    done
+fi
+
+if [ "$LANGUAGE" = "pt_BR" ]; then echo "Saindo..."; else echo "Exitting..."; fi
+sleep 1
+exit 0
