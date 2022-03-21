@@ -23,14 +23,18 @@ text(){
 
 cd "$HOME" || exit
 
-check_connection=$(ping -w 1 google.com)
+check_connection=$(ping -w 1 githubstatus.com)
 check_rootUsers=$UID
 check_git=$(which git)
+pull=true
 
-if [ -z "$check_connection" ];then
+echo "$check_connection"
+if [ -z $check_connection ];then
     text connectionError
     exit
-elif [ -z "$check_git" ];then
+fi
+
+if [ -z "$check_git" ];then
     text gitInstalledError
     read -r installGit="Y"
     if [ "$installGit" == "Y" -o "$installGit" == "y" ];then
@@ -54,35 +58,39 @@ if [ -d "cmd" ]; then
     else
         mkdir "$HOME/cmd"
         touch comando "$HOME/cmd"
-        echo 'ls ~' > "$HOME/cmd/comando"
-        
+        echo "" > "$HOME/cmd/comando"
         touch rcmd.log "$HOME/cmd"
+        echo " " > "$HOME/cmd/rcmd.log"
         cd "$HOME/cmd" || exit
         
         git init
+        git add .
         git add comando rcmd.log
-        git commit -m "First commit" -a        
-        #gh repo create -s . --private
-        git remote add origin https://github.com/"$2"/cmd.git
+        git commit -m "First commit"
+        gh repo create -s . --private
+        git remote add origin "https://github.com/$2/cmd.git"
         git push -u origin master
 fi
 
 cd "$HOME" || exit
 while true;do
     sleep "$1"
-    rm -rf "$HOME/cmd"
-    cd "$HOME" || exit
-    git clone "https://github.com/$2/cmd.git"
     cd "$HOME/cmd" || exit
+    git init > /dev/null
+    git pull origin master > /dev/null
+    echo "" > ./rcmd.log
+    cmd=$(cat "$HOME"/cmd/comando)
+    if [ "$cmd" == "exit" ];then
+        break
+    fi
+    date=$(date)
     
-    cmd=$(cat $HOME/cmd/comando)
-    $cmd &
+    echo -e "\n* $date" >> ./rcmd.log
+    $cmd >> ./rcmd.log 
     
-    echo -e date"\n""$cmd\n" >> ./rcmd.log
-    git init
-    git add rcmd.log
-    git commit -m "commit"
-    git push -u origin master
+    git add rcmd.log > /dev/null
+    git commit -m "commit" > /dev/null
+    git push -u origin master > /dev/null
     
 done
 
