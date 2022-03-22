@@ -16,7 +16,7 @@
     (For a command with root privileges.)
     * You will need to authenticate on github, follow the step by step shown in the terminal.
 
-    * Now just open your github with another device, anywhere, and edit or add a command in the **comando** file of the cmd repository (this repository was created when the program was run for the first time, it is a private directory).
+    * Now just open your github with another device, anywhere, and edit or add a command in the **comando** file of the .cmd repository (this repository was created when the program was run for the first time, it is a private directory).
 
     * Use `exit` command in the comando file to close the program.
 
