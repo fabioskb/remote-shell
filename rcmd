@@ -152,9 +152,9 @@ if [ "$menuOption" -eq 1 ]; then
     if [ "$LANGUAGE" = "pt_BR" ]; then echo "Deletando Todas configurações..."; else echo "Deleting all settings..."; fi
     printf "${STOP}"
     printf "${PURPLE}"
-    gh repo delete cmd --confirm
-    if [ -e "$HOME/cmd" ]; then
-        rm -rf "$HOME"/cmd
+    gh repo delete .cmd --confirm
+    if [ -e "$HOME/.cmd" ]; then
+        rm -rf "$HOME"/.cmd
     fi
     printf "${STOP}"
 elif [ "$menuOption" -eq 2 ]; then
@@ -213,7 +213,8 @@ elif [ "$menuOption" -eq 2 ]; then
         date=$(date)
         if [ "$cmd" == "exit" ];then
             echo "" > rcmd.log
-            git add rcmd.log &> /dev/null
+            echo "" > comando
+            git add rcmd.log comando &> /dev/null
             git commit -m "commit" &> /dev/null
             git push -u origin master &> /dev/null
             break
@@ -221,6 +222,7 @@ elif [ "$menuOption" -eq 2 ]; then
 
         printf "${ORANGE_LIGHT}"
         echo -e "\n${date^^}" >> ./rcmd.log
+        if [ "$LANGUAGE" = pt_BR ]; then echo "Executando..."; else echo "Running..."; fi
         $cmd >> ./rcmd.log 
         if [ "$LANGUAGE" = pt_BR ]; then echo "Executado!"; else echo "Executed!"; fi
         printf "${STOP}"
@@ -230,7 +232,6 @@ elif [ "$menuOption" -eq 2 ]; then
         git push -u origin master &> /dev/null
 
         case ${safe_mode} in s) nmcli r all off;; esac
-        sleep 3
         printf "${STOP}"
     done
 fi
