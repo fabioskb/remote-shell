@@ -144,17 +144,17 @@ elif [ "$menuOption" -eq 2 ]; then
 
     cd "$HOME/cmd" || exit
     while true;do
-       clear
-       figlet "Remote Shell"
-       if [ "$LANGUAGE" = pt_BR ];then echo "Esperando pelo comando..."; else echo "Waiting for command..."; fi
+        clear
+        figlet "Remote Shell"
+        if [ "$LANGUAGE" = pt_BR ];then echo "Esperando pelo comando..."; else echo "Waiting for command..."; fi
         case "${safe_mode}" in
             s)
-                sleep "$wait_time"$tm
+                sleep "$wait_time""$tm"
                 nmcli r all on
                 sleep 5s
             ;;
             ?)
-                sleep "$wait_time"$tm
+                sleep "$wait_time""$tm"
             ;;
         esac
         git init > /dev/null
