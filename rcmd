@@ -207,24 +207,26 @@ elif [ "$menuOption" -eq 2 ]; then
                 sleep "$wait_time""$tm"
             ;;
         esac
-        git init > /dev/null
-        git pull origin master > /dev/null
+        git init &> /dev/null
+        git pull origin master &> /dev/null
         cmd=$(cat comando)
         date=$(date)
         if [ "$cmd" == "exit" ];then
             echo "" > rcmd.log
-            git add rcmd.log > /dev/null
-            git commit -m "commit" > /dev/null
-            git push -u origin master > /dev/null
+            git add rcmd.log &> /dev/null
+            git commit -m "commit" &> /dev/null
+            git push -u origin master &> /dev/null
             break
         fi
 
+        printf "${ORANGE}"
         echo -e "\n* $date" >> ./rcmd.log
         $cmd >> ./rcmd.log 
+        printf "${STOP}"
 
-        git add rcmd.log > /dev/null
-        git commit -m "commit" > /dev/null
-        git push -u origin master > /dev/null
+        git add rcmd.log &> /dev/null
+        git commit -m "commit" &> /dev/null
+        git push -u origin master &> /dev/null
 
         case ${safe_mode} in s) nmcli r all off;; esac
         sleep 3

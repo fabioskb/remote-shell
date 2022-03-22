@@ -18,6 +18,8 @@
 
     * Now just open your github with another device, anywhere, and edit or add a command in the **comando** file of the cmd repository (this repository was created when the program was run for the first time, it is a private directory).
 
+    * Use `exit` command in the comando file to close the program.
+
 ## Install
 1. `curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg`
 
