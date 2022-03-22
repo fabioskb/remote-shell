@@ -16,7 +16,7 @@ PURPLE_LIGHT="\e[95m"
 CYAN_LIGHT="\e[96m"
 STOP="\e[0m"
 
-printf "${BLUE}"
+printf "${BLUE_LIGHT}"
 clear
 figlet -c "Remote Shell"
 printf "${STOP}"
