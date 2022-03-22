@@ -166,17 +166,17 @@ elif [ "$menuOption" -eq 2 ]; then
     git config --global user.name "$user_git"
     git config --global user.email "$email_git"
 
-    if [ -d "cmd" ]; then
+    if [ -d ".cmd" ]; then
         echo
     else
-        mkdir "$HOME/cmd"
-        touch comando "$HOME/cmd"
-        echo "ls ." > "$HOME/cmd/comando"
-        touch rcmd.log "$HOME/cmd"
-        echo " " > "$HOME/cmd/rcmd.log"
-        touch README.md "$HOME/cmd"
-        cd "$HOME/cmd" || exit
-        echo "* Put a command inside the comando file to be executed remotely in the remote-shell program." > "$HOME/cmd/README.md"
+        mkdir "$HOME/.cmd"
+        touch comando "$HOME/.cmd"
+        echo "ls ." > "$HOME/.cmd/comando"
+        touch rcmd.log "$HOME/.cmd"
+        echo " " > "$HOME/.cmd/rcmd.log"
+        touch README.md "$HOME/.cmd"
+        cd "$HOME/.cmd" || exit
+        echo "* Put a command inside the comando file to be executed remotely in the remote-shell program." > "$HOME/.cmd/README.md"
         echo "* You can see the execution log in the rcmd.log file." >> "$HOME/cmd/README.md"
 
         git init
@@ -189,7 +189,7 @@ elif [ "$menuOption" -eq 2 ]; then
     fi
     printf "${STOP}"
 
-    cd "$HOME/cmd" || exit
+    cd "$HOME/.cmd" || exit
     while true;do
         printf "${CYAN_LIGHT}"
         clear
@@ -219,9 +219,10 @@ elif [ "$menuOption" -eq 2 ]; then
             break
         fi
 
-        printf "${ORANGE}"
-        echo -e "\n* $date" >> ./rcmd.log
+        printf "${ORANGE_LIGHT}"
+        echo -e "\n${date^^}" >> ./rcmd.log
         $cmd >> ./rcmd.log 
+        if [ "$LANGUAGE" = pt_BR ]; then echo "Executado!"; else echo "Executed!"; fi
         printf "${STOP}"
 
         git add rcmd.log &> /dev/null
