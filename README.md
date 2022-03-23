@@ -12,7 +12,7 @@
 * rcmd [ -s ] [ <wait_time> ]
     #### Examples
     * $ `rcmd -s 3h fabio example@hotmail.com`
-    * $ `rcmd -s 30m
+    * $ `rcmd -s 30m'
     * $ `rcmd`
     * \# `sudo rcmd 3h` 
     (For a command with root privileges.)
