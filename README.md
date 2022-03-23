@@ -2,17 +2,19 @@
 ### Run commands remotely via GitHub
 #### Arguments
     * [ -s ] (optional): Disables the connection during the program's waiting period.
-    * <wait_time> : Waiting time to execute the command.
-    * <unit_time> : Unit of time.
-    * <user_git> : GitHub username for a global configuration.
-    * <email_git> : GitHub account email for a global configuration.
+    * [ <wait_time> ] : Waiting time to execute the command.
+    * [ <unit_time> ] : Unit of time.
+    * [ <user_git> ] : GitHub username for a global configuration.
+    * [ <email_git> ] : GitHub account email for a global configuration.
 
 ## Usage
-* rcmd [ -s ] <wait_time> <unit_time> <user_github> <email_github>
+* rcmd [ -s ] [ <wait_time> ] [ <user_github> ] [ <email_github> ] (When starting the program for the first time or after resetting)
+* rcmd [ -s ] [ <wait_time> ]
     #### Examples
-    * $ `rcmd -s 3 h fabio example@hotmail.com`
-    * $ `rcmd 3 h fabio example@hotmail.com`
-    * \# `sudo rcmd 3 h fabio example@hotmail.com` 
+    * $ `rcmd -s 3h fabio example@hotmail.com`
+    * $ `rcmd -s 30m
+    * $ `rcmd`
+    * \# `sudo rcmd 3h` 
     (For a command with root privileges.)
     * You will need to authenticate on github, follow the step by step shown in the terminal.
 
@@ -29,6 +31,6 @@
 
 1. `sudo apt install wget`
 
-2. `wget https://github.com/fabioskb/remote-shell/releases/download/Latest/remote-shell_0.0.2-beta_all.deb`
+2. `wget https://github.com/fabioskb/remote-shell/releases/download/Latest/remote-shell_0.0.3-beta_all.deb`
 
-3. `sudo apt install ./remote-shell_0.0.2-beta.deb`
+3. `sudo apt install ./remote-shell_0.0.3-beta.deb`
