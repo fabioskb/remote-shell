@@ -34,3 +34,5 @@
 2. `wget https://github.com/fabioskb/remote-shell/releases/download/Latest/remote-shell_0.0.3-beta_all.deb`
 
 3. `sudo apt install ./remote-shell_0.0.3-beta.deb`
+
+## <a href="https://github.com/fabioskb/changes/blob/main/youdl.md">Changelogs</a>
