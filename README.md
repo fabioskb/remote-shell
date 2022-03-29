@@ -1,20 +1,16 @@
 # Remote Shell
 ### Run commands remotely via GitHub
 #### Arguments
-    * [ -s ] (optional): Disables the connection during the program's waiting period.
-    * [ <wait_time> ] : Waiting time to execute the command.
-    * [ <unit_time> ] : Unit of time.
-    * [ <user_git> ] : GitHub username for a global configuration.
-    * [ <email_git> ] : GitHub account email for a global configuration.
+    * save_mode (optional): Disables the connection during the program's waiting period.
+    * wait_time : Waiting time to execute the command.
+    * user_git : GitHub username for a global configuration.
+    * email_git : GitHub account email for a global configuration.
 
 ## Usage
-* rcmd [ -s ] [ <wait_time> ] [ <user_github> ] [ <email_github> ] (When starting the program for the first time or after resetting)
-* rcmd [ -s ] [ <wait_time> ]
+* rcmd
     #### Examples
-    * $ `rcmd -s 3h fabio example@hotmail.com`
-    * $ `rcmd -s 30m`
     * $ `rcmd`
-    * \# `sudo rcmd 3h` 
+    * \# `sudo rcmd` 
     (For a command with root privileges.)
     * You will need to authenticate on github, follow the step by step shown in the terminal.
 
@@ -31,8 +27,8 @@
 
 1. `sudo apt install wget`
 
-2. `wget https://github.com/fabioskb/remote-shell/releases/download/Latest/remote-shell_0.0.3-beta_all.deb`
+2. `wget https://github.com/fabioskb/remote-shell/releases/download/Latest/remote-shell_0.1.0-beta_all.deb`
 
-3. `sudo apt install ./remote-shell_0.0.3-beta.deb`
+3. `sudo apt install ./remote-shell_0.1.0-beta.deb`
 
 ### <a href="https://github.com/fabioskb/changes/blob/main/rcmd.md">Changelogs</a>
