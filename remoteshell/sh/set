@@ -1,0 +1,40 @@
+#!/bin/bash
+
+conn=$(ping -w 2 google.com)
+user_git=$1
+email_git=$2
+
+if [ ! -f "$HOME/rcmd/.auth" ] && [ -n "$conn" ]; then
+    touch "$HOME"/rcmd/.auth
+    exo-open --launch TerminalEmulator /usr/share/remote-shell/sh/set sleep 2
+    exit
+else
+    echo "Setting..."
+    if [ ! -d "$HOME/.cmd" ] && [ -n "$conn" ];then
+        git config --global user.name "$user_git"
+        git config --global user.email "$email_git"
+        mkdir "$HOME/.cmd"
+        cd "$HOME/.cmd" || exit
+        touch comando
+        echo "ls ." > comando
+        touch rcmd.log
+        echo " " > rcmd.log
+        touch README.md
+        echo "* Put a command inside the comando file to be executed remotely in the remote-shell program." > README.md
+        echo "* You can see the execution log in the rcmd.log file." >> README.md
+
+        git init
+        git add .
+        git add comando rcmd.log README.md
+        git commit -m "First commit"
+        gh repo create -s . --private
+        git remote add origin "https://github.com/$1/.cmd.git"
+        git push -u origin master 
+        cd "$HOME" || exit
+        if [ "$LANGUAGE" = "pt_BR" ];then echo "Ok! Reinicie! Saindo...";else echo "OK! Restart! Exitting...";fi
+    elif [ -z "$conn" ]; then
+        if [ "$LANGUAGE" = pt_BR ];then echo "Internet falhou! ";else echo "Failed networking! ";fi
+        exit
+    fi
+fi
+exit
