@@ -16,7 +16,11 @@
 
     * Now just open your github with another device, anywhere, and edit or add a command in the **comando** file of the .cmd repository (this repository was created when the program was run for the first time, it is a private directory).
 
-    * Use `exit` command in the comando file to close the program.
+    * Use `exit` command in the comando file to close the program on the next run.
+
+    * You can use the waittime file remotely, in the .cmd repository, to configure the wait time
+      on the next run.
+      Usage: time + unit time. Examples -> 30s, 1.5h, 20m, 1d, ...
 
 ## Install
 1. `curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg`
@@ -27,8 +31,8 @@
 
 1. `sudo apt install wget`
 
-2. `wget https://github.com/fabioskb/remote-shell/releases/download/Latest/remote-shell_0.1.1_all.deb`
+2. `wget https://github.com/fabioskb/remote-shell/releases/download/Latest/remote-shell_0.1.2_all.deb`
 
-3. `sudo apt install ./remote-shell_0.1.1_all.deb`
+3. `sudo apt install ./remote-shell_0.1.2_all.deb`
 
 ### <a href="https://github.com/fabioskb/changes/blob/main/rcmd.md">Changelogs</a>

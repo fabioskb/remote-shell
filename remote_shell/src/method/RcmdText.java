@@ -36,27 +36,27 @@ public class RcmdText {
 		"<html><center>Abrirá o terminal para Authenticar no "          // [20] JOptionPane info Auth
 		+"GitHub<br>Siga o passo a passo!</center></html>",
 		"Parado!",                                                      // [21] lblInfo parado
-		"<html><center>Ative para desligar todas as conexões com a rede"
-                + "<br>no período de espera.</center></html>",                  // [22] TootlTip botão save_battery
-                "<html><center>Adicione o nome de usuario do GitHub para uma "
-                + "<br>configuração global.</center></html>",                   // [23] ToolTip FieldText user
-                "<html><center>Adicione o email da sua conta do GitHub para uma"
-                + "<br>configuração global.</center></html>",                   // [24] ToolTip FielText email
-                "<html><center>Adicione um tempo de espera entre um comando "
-                + "<br>e outro (30s, 3m, 1h, 1d, ...).</center></html>",        // [25] ToolTip FieldText Wait Time
-                "<html><center>Clique aqui para iniciar a espera pelo comando."
-                + "</center></html>",                                           // [26] ToolTip Botão Iniciar
-                "<html><center>Clique aqui para configurar globalmente o seu "
-                + "<br>GitHub.</center></html>",                                // [27] ToolTip Botão configurar
-                "<html><center>Clique aqui para resetar todas as configurações"
+		"<html>Ative para desligar todas as conexões com a rede"
+                + "<br>no período de espera.</html>",                  // [22] TootlTip botão save_battery
+                "<html>Adicione o nome de usuario do GitHub para uma "
+                + "<br>configuração global.</html>",                   // [23] ToolTip FieldText user
+                "<html>Adicione o email da sua conta do GitHub para uma"
+                + "<br>configuração global.</html>",                   // [24] ToolTip FielText email
+                "<html>Adicione um tempo de espera entre um comando "
+                + "<br>e outro (30s, 3m, 1h, 1d, ...).</html>",        // [25] ToolTip FieldText Wait Time
+                "<html>Clique aqui para iniciar a espera pelo comando."
+                + "</html>",                                           // [26] ToolTip Botão Iniciar
+                "<html>Clique aqui para configurar globalmente o seu "
+                + "<br>GitHub.</html>",                                // [27] ToolTip Botão configurar
+                "<html>Clique aqui para resetar todas as configurações"
                 + "<br>da aplicação (comandos, repositório remoto e etc)."
-                + "</center></html>",                                           // [28] ToolTip Botão Resetar
-                "<html><center>Clique aqui para parar a execução do atual "
+                + "</html>",                                           // [28] ToolTip Botão Resetar
+                "<html>Clique aqui para parar a execução do atual "
                 + "<br>comando, dará um exit no repositório remoto, limpará os "
                 + "<br>logs e limpará os comandos atuais no arquivo comando."
-                + "</center></html>",                                           // [29] ToolTip Botão Parar
-                "<html><center>Clique aqui para sair da aplicação. Isso matará"
-                + "<br> o atual comando, se em execução.</center></html>",      // [30] Tooltip Botão Sair
+                + "</html>",                                           // [29] ToolTip Botão Parar
+                "<html>Clique aqui para sair da aplicação. Isso matará"
+                + "<br> o atual comando, se em execução.</html>",      // [30] Tooltip Botão Sair
 		//"<html><center></center></html>",
 	};
 
@@ -93,27 +93,27 @@ public class RcmdText {
 		"<html><center>Will open the terminal to authenticate in "     // [20] JOptionPane info Auth
 		+"GitHub<br>Follow the step by step!</center></html>",
 		"Stopped!",                                                    // [21] lblInfo parado
-                "<html><center>Enable to turn off all connections to the network"
-                + "<br>in waiting period.</center></html>",                    // [22] TootlTip save_battery button
-                "<html><center>Add your GitHub username to a "
-                + "<br>global configuration.</center></html>",                 // [23] ToolTip FieldText user
-                "<html><center>Add your GitHub account email to a"
-                + "<br>global configuration.</center></html>",                 // [24] ToolTip FielText email
-                "<html><center>Add a timeout between a command "
-                + "<br>and another (30s, 3m, 1h, 1d, ...).</center></html>",   // [25] ToolTip FieldText Wait Time
-                "<html><center>Click here to start waiting for the command."
-                + "</center></html>",                                          // [26] ToolTip Start Button
-                "<html><center>Click here to globally configure your "
-                + "<br>GitHub.</center></html>",                               // [27] ToolTip Configure button
-                "<html><center>Click here to reset all settings"
+                "<html>Enable to turn off all connections to the network"
+                + "<br>in waiting period.</html>",                    // [22] TootlTip save_battery button
+                "<html>Add your GitHub username to a "
+                + "<br>global configuration.</html>",                 // [23] ToolTip FieldText user
+                "<html>Add your GitHub account email to a"
+                + "<br>global configuration.</html>",                 // [24] ToolTip FielText email
+                "<html>Add a timeout between a command "
+                + "<br>and another (30s, 3m, 1h, 1d, ...).</html>",   // [25] ToolTip FieldText Wait Time
+                "<html>Click here to start waiting for the command."
+                + "</html>",                                          // [26] ToolTip Start Button
+                "<html>Click here to globally configure your "
+                + "<br>GitHub.</html>",                               // [27] ToolTip Configure button
+                "<html>Click here to reset all settings"
                 + "<br>of the application (commands, remote repository, etc.)."
-                + "</center></html>",                                          // [28] ToolTip Reset Button
-                "<html><center>Click here to stop running the current "
+                + "</html>",                                          // [28] ToolTip Reset Button
+                "<html>Click here to stop running the current "
                 + "<br>command, exit remote repository, clear "
                 + "<br>logs and will clear the current commands in the command file."
-                + "</center></html>",                                          // [29] ToolTip Stop Button
-                "<html><center>Click here to exit the application. This will kill"
-                + "<br> the current command, if running.</center></html>",     // [30] Tooltip Exit button
+                + "</html>",                                          // [29] ToolTip Stop Button
+                "<html>Click here to exit the application. This will kill"
+                + "<br> the current command, if running.</html>",     // [30] Tooltip Exit button
 	};
 
 	

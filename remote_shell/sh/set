@@ -22,10 +22,12 @@ else
         touch README.md
         echo "* Put a command inside the comando file to be executed remotely in the remote-shell program." > README.md
         echo "* You can see the execution log in the rcmd.log file." >> README.md
+        touch waittime
+        echo "" > waittime
 
         git init
         git add .
-        git add comando rcmd.log README.md
+        git add comando rcmd.log README.md waittime
         git commit -m "First commit"
         gh repo create -s . --private
         git remote add origin "https://github.com/$1/.cmd.git"

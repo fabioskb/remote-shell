@@ -12,11 +12,14 @@ fi
 if [ -d "$HOME/.cmd" ] && [ -n "$conn" ]; then
     cd "$HOME/.cmd" || exit
     while true;do
-        if [ "$LANGUAGE" = "pt_BR" ];then 
-            echo "Esperando pelo comando..." 
-        else 
-            echo "Waiting for command..." 
+        git init
+        git pull origin master
+
+        rtime=$(cat waittime)
+        if [ -n "$rtime" ]; then
+            wait_time="$rtime"
         fi
+
         case "${safe_mode}" in
             s)
                 sleep "$wait_time"
@@ -27,8 +30,7 @@ if [ -d "$HOME/.cmd" ] && [ -n "$conn" ]; then
                 sleep "$wait_time"
             ;;
         esac
-        git init
-        git pull origin master
+        
         cmd=$(cat comando)
         date=$(date)
         if [ "$cmd" == "exit" ];then
@@ -41,17 +43,7 @@ if [ -d "$HOME/.cmd" ] && [ -n "$conn" ]; then
         fi
 
         echo -e "\n${date^^}" >> ./rcmd.log
-        if [ "$LANGUAGE" = pt_BR ]; then 
-            echo "Executando..."
-        else 
-            echo "Running..."
-        fi
         $cmd >> ./rcmd.log 
-        if [ "$LANGUAGE" = pt_BR ]; then 
-            echo "Executado!" 
-        else 
-            echo "Executed!"
-        fi
 
         git add rcmd.log
         git commit -m "commit"
