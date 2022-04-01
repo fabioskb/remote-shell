@@ -1,5 +1,0 @@
-#!/bin/bash
-
-echo "Stopping..."
-echo "exit" > "$HOME/.cmd/comando"
-exit

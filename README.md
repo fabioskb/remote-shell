@@ -27,8 +27,8 @@
 
 1. `sudo apt install wget`
 
-2. `wget https://github.com/fabioskb/remote-shell/releases/download/Latest/remote-shell_0.1.0-beta_all.deb`
+2. `wget https://github.com/fabioskb/remote-shell/releases/download/Latest/remote-shell_0.1.1_all.deb`
 
-3. `sudo apt install ./remote-shell_0.1.0-beta_all.deb`
+3. `sudo apt install ./remote-shell_0.1.1_all.deb`
 
 ### <a href="https://github.com/fabioskb/changes/blob/main/rcmd.md">Changelogs</a>
