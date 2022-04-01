@@ -1,0 +1,70 @@
+#!/bin/bash
+
+getopts s safe_mode
+
+conn=$(ping -w 1 google.com)
+if [ "$1" = "-s" ];then
+    wait_time=$2
+elif [ -n "$1" ];then
+    wait_time=$1
+fi
+
+if [ -d "$HOME/.cmd" ] && [ -n "$conn" ]; then
+    cd "$HOME/.cmd" || exit
+    while true;do
+        if [ "$LANGUAGE" = "pt_BR" ];then 
+            echo "Esperando pelo comando..." 
+        else 
+            echo "Waiting for command..." 
+        fi
+        case "${safe_mode}" in
+            s)
+                sleep "$wait_time"
+                nmcli r all on
+                sleep 7s
+            ;;
+            ?)
+                sleep "$wait_time"
+            ;;
+        esac
+        git init
+        git pull origin master
+        cmd=$(cat comando)
+        date=$(date)
+        if [ "$cmd" == "exit" ];then
+            echo "" > rcmd.log
+            echo "" > comando
+            git add rcmd.log comando
+            git commit -m "commit"
+            git push -u origin master
+            break
+        fi
+
+        echo -e "\n${date^^}" >> ./rcmd.log
+        if [ "$LANGUAGE" = pt_BR ]; then 
+            echo "Executando..."
+        else 
+            echo "Running..."
+        fi
+        $cmd >> ./rcmd.log 
+        if [ "$LANGUAGE" = pt_BR ]; then 
+            echo "Executado!" 
+        else 
+            echo "Executed!"
+        fi
+
+        git add rcmd.log
+        git commit -m "commit"
+        git push -u origin master
+
+        case ${safe_mode} in s) nmcli r all off;; esac
+    done
+elif [ -z "$conn" ]; then
+    if [ "$LANGUAGE" = pt_BR ]; then echo -e "Internet Falhou! "; else echo -e "Failed Networking! ";fi
+    exit
+else
+    echo "Inexistente"
+    exit
+fi
+
+exit
