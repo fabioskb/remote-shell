@@ -16,7 +16,7 @@ if [ -d "$HOME/.cmd" ] && [ -n "$conn" ]; then
         git pull origin master
 
         rtime=$(cat waittime)
-        if [ -n "$rtime" ]; then
+        if [ "$rtime" != " " ]; then
             wait_time="$rtime"
         fi
 
