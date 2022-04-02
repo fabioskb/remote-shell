@@ -25,7 +25,6 @@ public class RemoteShellEvents extends RemoteShellScreen implements EventsInterf
                 getLabelInformation().setText(TEXT.pegarTexto(9));
                 if (getToggleButtonSaveMode().isSelected()) st = CMD.comando(FOLDER_SH.getCaminho()+"execute -s "+getTextFieldWaitTime().getText());
                 else st = CMD.comando(FOLDER_SH.getCaminho()+"execute "+getTextFieldWaitTime().getText());
-                //else st = CMD.comando("/home/fabio/Documentos/remote-shell/remoteshell/sh/execute "+getTextFieldWaitTime().getText());
                 getLabelInformation().setText(st);
             } else if (getTextFieldWaitTime().getText().isEmpty()) {
                 getLabelInformation().setText(TEXT.pegarTexto(16));
