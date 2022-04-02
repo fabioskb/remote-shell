@@ -1,6 +1,6 @@
 # Remote Shell
 ### Run commands remotely via GitHub
-[![rcmd run]({https://github.com/fabioskb/remote-shell/blob/master/screenshot/rcmd.png})]({https://github.com/fabioskb/remote-shell/blob/master/screencast/rcmd.mp4} "Remote Shell")
+[![rcmd run]({https://github.com/fabioskb/remote-shell/blob/master/screenshot/rcmd.png})]
 
 #### Arguments
     * save_mode (optional): Disables the connection during the program's waiting period.
