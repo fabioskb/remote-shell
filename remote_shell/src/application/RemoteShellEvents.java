@@ -39,7 +39,7 @@ public class RemoteShellEvents extends RemoteShellScreen implements EventsInterf
             if (!getTextFieldUser().getText().isEmpty() && !getTextFieldUser().getText().isEmpty()) {
                 getLabelInformation().setText("Setting...");
                 if (!AUTH_FILE.getArq().isFile()) JOptionPane.showMessageDialog(null, TEXT.pegarTexto(20), TITLE, JOptionPane.INFORMATION_MESSAGE, IMAGE.pegarIcon("/resource/shell.png"));
-                String set = CMD.comando(FOLDER_SH.getCaminho()+"set");
+                String set = CMD.comando(FOLDER_SH.getCaminho()+"set " + getTextFieldUser().getText() + " " + getTextFieldEmail().getText());
                 getLabelInformation().setText(set);
                 CMD.sleep(5);
                 if (FOLDER_REPO.getArq().isDirectory()) {
