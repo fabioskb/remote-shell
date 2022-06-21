@@ -51,6 +51,7 @@ if [ -d "$HOME/.cmd" ] && [ -n "$conn" ]; then
 
         case ${safe_mode} in s) nmcli r all off;; esac
     done
+    echo " " > waittime
 elif [ -z "$conn" ]; then
     if [ "$LANGUAGE" = pt_BR ]; then echo -e "Internet Falhou! "; else echo -e "Failed Networking! ";fi
     exit
