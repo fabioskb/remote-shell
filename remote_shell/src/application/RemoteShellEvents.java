@@ -23,15 +23,18 @@ public class RemoteShellEvents extends RemoteShellScreen implements EventsInterf
 			String st = "";
 			if (FOLDER_REPO.getArq().isDirectory() && !getTextFieldWaitTime().getText().isEmpty()) {
 				getLabelInformation().setText(TEXT.pegarTexto(9));
+				getButtonExecute().setVisible(false);
 				if (getToggleButtonSaveMode().isSelected())
 					st = CMD.comando(FOLDER_SH.getCaminho() + "execute -s " + getTextFieldWaitTime().getText());
 				else
 					st = CMD.comando(FOLDER_SH.getCaminho() + "execute " + getTextFieldWaitTime().getText());
 				getLabelInformation().setText(st);
+				getButtonExecute().setVisible(true);
 			} else if (getTextFieldWaitTime().getText().isEmpty()) {
 				getLabelInformation().setText(TEXT.pegarTexto(16));
 			}
 		});
+		
 		execute.start();
 	}
 
@@ -95,6 +98,7 @@ public class RemoteShellEvents extends RemoteShellScreen implements EventsInterf
 			getLabelInformation().setText(stop);
 			CMD.sleep(2);
 			getLabelInformation().setText(TEXT.pegarTexto(21));
+			CMD.destruir();
 		});
 		parar.start();
 	}
