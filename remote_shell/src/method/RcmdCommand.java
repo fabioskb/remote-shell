@@ -16,7 +16,6 @@ public class RcmdCommand extends RemoteShellScreen {
 	/**
 	 * Executa e retorna a saida do comando.
 	 * 
-	 * @param executavel (String) - String de um executavel
 	 * @return (String) saida do comando
 	 * @throws IOException
 	 */
