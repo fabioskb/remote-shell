@@ -13,7 +13,7 @@ if [ -d "$HOME/.cmd" ] && [ -n "$conn" ]; then
     cd "$HOME/.cmd" || exit
     while true;do
         git init
-        git pull origin master
+        git pull origin master --rebase
 
         rtime=$(cat waittime)
         if [ "$rtime" != " " ]; then
