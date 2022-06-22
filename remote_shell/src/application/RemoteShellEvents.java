@@ -98,7 +98,7 @@ public class RemoteShellEvents extends RemoteShellScreen implements EventsInterf
 			getLabelInformation().setText(stop);
 			CMD.sleep(2);
 			getLabelInformation().setText(TEXT.pegarTexto(21));
-			CMD.destruir();
+			CMD.destruirApenasProcesso();
 		});
 		parar.start();
 	}

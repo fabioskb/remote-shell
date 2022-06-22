@@ -66,4 +66,9 @@ public class RcmdCommand extends RemoteShellScreen {
 		if (pro.isAlive()) pro.destroy();
 		RUN.exit(0);
 	}
+
+	public void destruirApenasProcesso() {
+		if (pro.isAlive()) pro.destroy();
+
+	}
 }
